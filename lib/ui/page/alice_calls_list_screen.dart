@@ -1,11 +1,11 @@
-import 'package:alice/model/alice_menu_item.dart';
+import 'package:alice/core/alice_core.dart';
 import 'package:alice/helper/alice_alert_helper.dart';
+import 'package:alice/model/alice_http_call.dart';
+import 'package:alice/model/alice_menu_item.dart';
 import 'package:alice/model/alice_sort_option.dart';
 import 'package:alice/ui/page/alice_call_details_screen.dart';
-import 'package:alice/core/alice_core.dart';
-import 'package:alice/model/alice_http_call.dart';
-import 'package:alice/utils/alice_constants.dart';
 import 'package:alice/ui/widget/alice_call_list_item_widget.dart';
+import 'package:alice/utils/alice_constants.dart';
 import 'package:flutter/material.dart';
 
 import 'alice_stats_screen.dart';
@@ -32,7 +32,6 @@ class _AliceCallsListScreenState extends State<AliceCallsListScreen> {
     _menuItems.add(AliceMenuItem("Sort", Icons.sort));
     _menuItems.add(AliceMenuItem("Delete", Icons.delete));
     _menuItems.add(AliceMenuItem("Stats", Icons.insert_chart));
-    _menuItems.add(AliceMenuItem("Save", Icons.save));
   }
 
   @override
@@ -133,9 +132,6 @@ class _AliceCallsListScreenState extends State<AliceCallsListScreen> {
     }
     if (menuItem.title == "Stats") {
       _showStatsScreen();
-    }
-    if (menuItem.title == "Save") {
-      _saveToFile();
     }
   }
 
@@ -314,10 +310,6 @@ class _AliceCallsListScreenState extends State<AliceCallsListScreen> {
         builder: (context) => AliceStatsScreen(widget._aliceCore),
       ),
     );
-  }
-
-  void _saveToFile() async {
-    aliceCore.saveHttpRequests(context);
   }
 
   void _updateSearchQuery(String query) {

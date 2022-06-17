@@ -1,14 +1,12 @@
 import 'package:alice/core/alice_core.dart';
-import 'package:alice/helper/alice_save_helper.dart';
 import 'package:alice/model/alice_http_call.dart';
-import 'package:alice/utils/alice_constants.dart';
 import 'package:alice/ui/widget/alice_call_error_widget.dart';
 import 'package:alice/ui/widget/alice_call_overview_widget.dart';
 import 'package:alice/ui/widget/alice_call_request_widget.dart';
 import 'package:alice/ui/widget/alice_call_response_widget.dart';
+import 'package:alice/utils/alice_constants.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
-import 'package:share/share.dart';
 
 class AliceCallDetailsScreen extends StatefulWidget {
   final AliceHttpCall call;
@@ -64,22 +62,6 @@ class _AliceCallDetailsScreenState extends State<AliceCallDetailsScreen>
     return DefaultTabController(
       length: 4,
       child: Scaffold(
-        floatingActionButton: widget.core.showShareButton == true
-            ? FloatingActionButton(
-                backgroundColor: AliceConstants.lightRed,
-                key: const Key('share_key'),
-                onPressed: () async {
-                  Share.share(
-                    await _getSharableResponseString(),
-                    subject: 'Request Details',
-                  );
-                },
-                child: Icon(
-                  Icons.share,
-                  color: AliceConstants.white,
-                ),
-              )
-            : null,
         appBar: AppBar(
           bottom: TabBar(
             indicatorColor: AliceConstants.lightRed,
@@ -96,10 +78,6 @@ class _AliceCallDetailsScreenState extends State<AliceCallDetailsScreen>
 
   Widget _buildErrorWidget() {
     return const Center(child: Text("Failed to load data"));
-  }
-
-  Future<String> _getSharableResponseString() async {
-    return AliceSaveHelper.buildCallLog(widget.call);
   }
 
   List<Widget> _getTabBars() {
